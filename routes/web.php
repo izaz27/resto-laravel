@@ -19,6 +19,14 @@ Route::get('/gas-migrate', function () {
     }
 });
 
+Route::get('/install-user', function () {
+    \Illuminate\Support\Facades\Artisan::call('db:seed', [
+        '--class' => 'UserSeeder',
+        '--force' => true 
+    ]);
+    return "User Berhasil Dibuat!";
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes
