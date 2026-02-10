@@ -8,6 +8,16 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Kasir\DashboardController;
 use App\Http\Controllers\Customer\MenuController as CustomerMenuController;
 use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/gas-migrate', function () {
+    try {
+        Artisan::call('migrate --force');
+        return "Database berhasil di-migrate! Silakan cek halaman utama.";
+    } catch (\Exception $e) {
+        return "Gagal migrate: " . $e->getMessage();
+    }
+});
 
 /*
 |--------------------------------------------------------------------------
