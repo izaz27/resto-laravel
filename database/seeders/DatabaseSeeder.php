@@ -17,10 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class, 
-            CategorySeeder::class, 
-            MenuSeeder::class, // TAMBAHKAN INI
+            // CategorySeeder::class,  <-- Komentari jika tidak ingin jalan
+            // MenuSeeder::class,      <-- Komentari jika tidak ingin jalan
         ]);
-        // Pastikan Anda hanya menjalankan UserSeeder dan CategorySeeder sekali.
-        // Untuk memastikan data menu tidak duplikat, kita akan refresh DB.
     }
 }
