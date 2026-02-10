@@ -33,23 +33,26 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'role' => \App\Http\Middleware\RoleMiddleware::class,
-        ]);
+    // TAMBAHKAN INI: Agar Laravel mengenali SSL dari Railway/Vercel
+    $middleware->trustProxies(at: '*'); 
 
-        $middleware->redirectTo(
-            guests: '/login',
-            users: function () {
-                /** @var \App\Models\User|null $user */
-                $user = \Illuminate\Support\Facades\Auth::user(); 
-                
-                if ($user?->role === 'admin') return route('admin.dashboard');
-                if ($user?->role === 'kasir') return route('kasir.dashboard');
-                
-                return route('customer.home');
-            }
-        );
-    })
+    $middleware->alias([
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
+    ]);
+
+    $middleware->redirectTo(
+        guests: '/login',
+        users: function () {
+            /** @var \App\Models\User|null $user */
+            $user = \Illuminate\Support\Facades\Auth::user(); 
+            
+            if ($user?->role === 'admin') return route('admin.dashboard');
+            if ($user?->role === 'kasir') return route('kasir.dashboard');
+            
+            return route('customer.home');
+        }
+    );
+})
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

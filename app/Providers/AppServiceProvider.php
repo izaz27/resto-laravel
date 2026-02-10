@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
     }
 
     public function boot(): void
-    {
-        if (str_contains(request()->header('host'), 'ngrok-free')) {
-        \Illuminate\Support\Facades\URL::forceRootUrl(config('app.url'));
-        \Illuminate\Support\Facades\URL::forceScheme('https');
-        }
+{
+    // Paksa HTTPS jika aplikasi berjalan di server (Production)
+    if (config('app.env') === 'production') {
+        URL::forceScheme('https');
     }
+}
 }
