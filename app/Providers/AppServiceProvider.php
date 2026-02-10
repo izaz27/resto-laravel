@@ -16,6 +16,12 @@ class AppServiceProvider extends ServiceProvider
             MenuRepositoryInterface::class, 
             MenuRepository::class
         );
+
+        if (config('app.env') === 'production') {
+        $this->app->bind('path.public', function () {
+            return base_path('public');
+        });
+    }
     }
 
     public function boot(): void
