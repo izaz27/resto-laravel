@@ -19,12 +19,17 @@ Route::get('/gas-migrate', function () {
     }
 });
 
-Route::get('/install-user', function () {
-    \Illuminate\Support\Facades\Artisan::call('db:seed', [
-        '--class' => 'UserSeeder',
-        '--force' => true 
-    ]);
-    return "User Berhasil Dibuat!";
+Route::get('/gas-seed', function () {
+    try {
+        // Kita panggil spesifik UserSeeder saja sesuai permintaanmu
+        Artisan::call('db:seed', [
+            '--class' => 'UserSeeder',
+            '--force' => true
+        ]);
+        return "UserSeeder berhasil dijalankan! <br> Silakan <a href='/login'>Login di sini</a>.";
+    } catch (\Exception $e) {
+        return "Gagal seeding: " . $e->getMessage();
+    }
 });
 
 /*
