@@ -30,7 +30,7 @@
                 <div class="mt-4 space-y-2 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 text-gray-600">
                     <div class="flex items-start md:items-center justify-center md:justify-start gap-2 md:gap-3">
                         <span class="text-lg">📍Jl.Ciumbuleuit</span>
-                        <p class="text-sm md:text-lg leading-tight">{{ $info->address ?? 'Alamat belum diatur' }}</p>
+                        <p class="text-sm md:text-lg leading-tight">{{ $info->address ?? '' }}</p>
                     </div>
                     <div class="flex items-center justify-center md:justify-start gap-2 md:gap-3">
                         <span class="text-lg">🕒</span>
