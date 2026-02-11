@@ -32,6 +32,11 @@ Route::get('/gas-seed', function () {
     }
 });
 
+Route::get('/prepare-storage', function () {
+    Artisan::call('storage:link');
+    return "Storage link created!";
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes
