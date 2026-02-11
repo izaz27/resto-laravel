@@ -20,7 +20,7 @@
 
             <div class="flex-1 text-center md:text-left">
                 <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-                    <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 tracking-tight">{{ $info->name ?? 'Nama Resto' }}</h1>
+                    <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 tracking-tight">{{ $info->name ?? 'Resto' }}</h1>
                     <span class="px-3 py-1 bg-green-100 text-green-600 text-[10px] md:text-sm font-bold rounded-full w-fit mx-auto md:mx-0 flex items-center gap-1">
                         <span class="animate-pulse text-xs">●</span> Sedang Buka
                     </span>
@@ -29,7 +29,7 @@
                 {{-- Info Alamat & Jam: Menggunakan text-sm di mobile --}}
                 <div class="mt-4 space-y-2 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 text-gray-600">
                     <div class="flex items-start md:items-center justify-center md:justify-start gap-2 md:gap-3">
-                        <span class="text-lg">📍</span>
+                        <span class="text-lg">📍Jl.Ciumbuleuit</span>
                         <p class="text-sm md:text-lg leading-tight">{{ $info->address ?? 'Alamat belum diatur' }}</p>
                     </div>
                     <div class="flex items-center justify-center md:justify-start gap-2 md:gap-3">
