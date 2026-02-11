@@ -27,7 +27,7 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi - pastikan name di input form sama dengan di sini
+        // 1. Validasi
         $request->validate([
             'name' => 'required|max:255',
             'category_id' => 'required|exists:categories,id',
@@ -37,37 +37,39 @@ class MenuController extends Controller
         ]);
 
         try {
-            // 2. Cek apakah file benar-benar sampai ke server Vercel
+            // 2. Cek File
             if (!$request->hasFile('image')) {
-                dd('Error: File gambar tidak terbaca oleh server. Cek kembali tag form kamu.');
+                return back()->with('error', 'File gambar tidak terdeteksi.');
             }
 
-            // 3. Upload langsung ke Cloudinary menggunakan Path asli file sementara
-            // Kita tidak pakai Storage:: karena Vercel itu read-only
+            // 3. Upload Langsung ke Cloudinary
+            // Di Laravel 11+, kita bisa langsung pakai helper upload()
             $file = $request->file('image');
-            $upload = Cloudinary::upload($file->getRealPath(), [
+            $upload = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::upload($file->getRealPath(), [
                 'folder' => 'menus_resto'
             ]);
 
-            // 4. Ambil URL hasil upload
             $path = $upload->getSecurePath();
 
-            // 5. Simpan ke Database Railway
-            Menu::create([
+            // 4. Simpan ke Database Railway
+            \App\Models\Menu::create([
                 'name' => $request->name,
                 'slug' => \Illuminate\Support\Str::slug($request->name),
                 'category_id' => $request->category_id,
                 'price' => $request->price,
                 'description' => $request->description,
-                'image_path' => $path, 
+                'image_path' => $path, // Sesuai kolom di DB kamu
                 'is_available' => true
             ]);
 
             return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan!');
             
         } catch (\Exception $e) {
-            // Jika ada error (Cloudinary gagal, DB penuh, dll), tampilkan di layar
-            dd("Terjadi Error: " . $e->getMessage());
+            // Catat error ke log Vercel agar bisa kita intip nanti
+            \Illuminate\Support\Facades\Log::error('Upload Error: ' . $e->getMessage());
+            
+            // Tampilkan pesan error di halaman agar tidak cuma refresh
+            return back()->withInput()->with('error', 'Gagal: ' . $e->getMessage());
         }
     }
 

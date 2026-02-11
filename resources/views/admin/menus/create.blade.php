@@ -5,14 +5,9 @@
     <h1 class="text-2xl font-black text-gray-800 uppercase mb-6">Tambah Menu Baru</h1>
 
     {{-- TAMBAHKAN BLOK INI UNTUK MELIHAT ERROR --}}
-    @if ($errors->any())
-        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6">
-            <p class="font-bold text-sm uppercase italic mb-1">Ada masalah pada inputanmu:</p>
-            <ul class="list-disc list-inside text-xs font-bold">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    @if(session('error'))
+    <div style="background: #fee2e2; border: 1px solid #ef4444; color: #b91c1c; padding: 1rem; border-radius: 0.75rem; margin-bottom: 1.5rem;">
+            <strong>System Error:</strong> {{ session('error') }}
         </div>
     @endif
 
