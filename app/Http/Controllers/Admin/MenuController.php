@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
+
 class MenuController extends Controller
 {
     public function index()
@@ -25,43 +26,41 @@ class MenuController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'name' => 'required|max:255',
-        'category_id' => 'required|exists:categories,id',
-        'price' => 'required|numeric',
-        'description' => 'nullable',
-        'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', 
-    ]);
-
-    try {
-        // 2. Upload file ke Cloudinary (menggantikan $request->file('image')->store(...))
-        // Kita simpan di folder 'menus_resto' agar rapi di dashboard Cloudinary
-        $upload = Cloudinary::upload($request->file('image')->getRealPath(), [
-            'folder' => 'menus_resto'
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric',
+            'description' => 'nullable',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', 
         ]);
 
-        // 3. Ambil URL aman (https) dari Cloudinary
-        $path = $upload->getSecurePath();
+        try {
+            // 1. Upload ke Cloudinary
+            $upload = Cloudinary::upload($request->file('image')->getRealPath(), [
+                'folder' => 'menus_resto'
+            ]);
 
-        // 4. Simpan ke database Railway melalui Eloquent
-        Menu::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'category_id' => $request->category_id,
-            'price' => $request->price,
-            'description' => $request->description,
-            'image_path' => $path, // Sekarang berisi URL https://res.cloudinary.com/...
-            'is_available' => true
-        ]);
+            // 2. Ambil URL aman
+            $path = $upload->getSecurePath();
 
-        return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan!');
-        
-    } catch (\Exception $e) {
-        // Jika ada masalah koneksi ke Cloudinary
-        return redirect()->back()->with('error', 'Gagal upload gambar: ' . $e->getMessage());
+            // 3. Simpan ke Database
+            Menu::create([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'category_id' => $request->category_id,
+                'price' => $request->price,
+                'description' => $request->description,
+                'image_path' => $path, 
+                'is_available' => true
+            ]);
+
+            return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan!');
+            
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal upload ke Cloudinary: ' . $e->getMessage());
+        }
     }
-}
 
     public function edit(Menu $menu)
     {
@@ -90,28 +89,38 @@ class MenuController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama menggunakan kolom image_path
-            if ($menu->image_path && Storage::disk('public')->exists($menu->image_path)) {
-                Storage::disk('public')->delete($menu->image_path);
+            try {
+                // Hapus gambar lama jika gambar tersebut adalah file lokal (bukan URL Cloudinary)
+                if ($menu->image_path && !filter_var($menu->image_path, FILTER_VALIDATE_URL)) {
+                    Storage::disk('public')->delete($menu->image_path);
+                }
+                
+                // Upload gambar baru ke Cloudinary
+                $upload = Cloudinary::upload($request->file('image')->getRealPath(), [
+                    'folder' => 'menus_resto'
+                ]);
+                $data['image_path'] = $upload->getSecurePath();
+
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Gagal update gambar ke Cloudinary: ' . $e->getMessage());
             }
-            
-            // Simpan gambar baru ke kolom image_path
-            $data['image_path'] = $request->file('image')->store('menus', 'public');
         }
 
         $menu->update($data);
-
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil diperbarui!');
     }
 
     public function destroy(Menu $menu)
     {
-        if ($menu->image_path) {
+        // Jika gambarnya adalah file lokal, hapus dari storage lokal
+        if ($menu->image_path && !filter_var($menu->image_path, FILTER_VALIDATE_URL)) {
             Storage::disk('public')->delete($menu->image_path);
         }
+        
+        // Catatan: Untuk menghapus file di Cloudinary lewat code perlu 'public_id'. 
+        // Sementara ini kita hapus record database-nya saja agar aplikasi tidak error.
 
         $menu->delete();
-
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil dihapus!');
     }
 }

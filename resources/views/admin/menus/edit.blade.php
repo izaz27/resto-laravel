@@ -4,6 +4,16 @@
 <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
     <h1 class="text-2xl font-black text-gray-800 uppercase mb-6 italic tracking-tighter">Edit Menu: {{ $menu->name }}</h1>
 
+    @if ($errors->any())
+    <div class="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-xs font-bold uppercase tracking-widest border border-red-100">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>• {{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('admin.menu.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -82,7 +92,7 @@
     </form>
 </div>
 
-<<script>
+<script>
     // Script untuk Preview Gambar Spontan
     const imageInput = document.getElementById('image-input');
     const previewImg = document.getElementById('preview-img');
