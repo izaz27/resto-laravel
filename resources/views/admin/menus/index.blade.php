@@ -31,7 +31,9 @@
                     {{-- Produk & Gambar --}}
                     <td class="py-4 flex items-center gap-4">
                         <div class="relative">
-                            <img src="{{ asset('storage/' . $menu->image_path) }}" class="w-14 h-14 object-cover rounded-2xl border shadow-sm" onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
+                            <img src="{{ $menu->image_path ? $menu->image_path : asset('images/default-menu.jpg') }}" 
+                                class="w-14 h-14 object-cover rounded-2xl border shadow-sm" 
+                                onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
                         </div>
                         <div>
                             <p class="font-black text-gray-800 uppercase text-sm tracking-tight">{{ $menu->name }}</p>

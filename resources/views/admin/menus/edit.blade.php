@@ -42,9 +42,9 @@
                     <label class="block text-xs font-black text-gray-500 uppercase mb-2 tracking-widest">Foto Produk</label>
                     <div class="relative group w-full h-56 mb-4 overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center bg-gray-50">
                         <img id="preview-img" 
-                             src="{{ $menu->image_path ? asset('storage/' . $menu->image_path) : asset('images/default-menu.jpg') }}" 
-                             class="w-full h-full object-cover transition duration-300 group-hover:opacity-75"
-                             onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
+                        src="{{ $menu->image_path ? $menu->image_path : asset('images/default-menu.jpg') }}" 
+                        class="w-full h-full object-cover transition duration-300 group-hover:opacity-75"
+                        onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                              <span class="bg-black/50 text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase">Ganti Foto</span>
                         </div>
@@ -82,13 +82,19 @@
     </form>
 </div>
 
-<script>
+<<script>
     // Script untuk Preview Gambar Spontan
-    document.getElementById('image-input').onchange = function (evt) {
-        const [file] = this.files;
-        if (file) {
-            document.getElementById('preview-img').src = URL.createObjectURL(file);
-        }
+    const imageInput = document.getElementById('image-input');
+    const previewImg = document.getElementById('preview-img');
+
+    if (imageInput && previewImg) {
+        imageInput.onchange = function (evt) {
+            const [file] = this.files;
+            if (file) {
+                // Membuat URL sementara agar user bisa melihat gambar sebelum di-upload
+                previewImg.src = URL.createObjectURL(file);
+            }
+        };
     }
 </script>
 @endsection

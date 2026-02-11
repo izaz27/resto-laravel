@@ -9,10 +9,10 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div class="relative">
-            <img src="{{ asset('storage/' . $menu->image_path) }}" 
-                 class="w-full h-[500px] object-cover rounded-3xl shadow-lg" 
-                 alt="{{ $menu->name }}"
-                 onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
+            <img src="{{ $menu->image_path ? $menu->image_path : asset('images/default-menu.jpg') }}" 
+                class="w-full h-[500px] object-cover rounded-3xl shadow-lg" 
+                alt="{{ $menu->name }}"
+                onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
         </div>
 
         <div class="flex flex-col">
@@ -32,7 +32,10 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach($recommendations as $rec)
                         <div class="flex items-center gap-4 bg-gray-50 p-2 rounded-xl">
-                            <img src="{{ asset('storage/' . $rec->image_path) }}" class="w-16 h-16 rounded-lg object-cover" onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
+                            <img src="{{ $rec->image_path ?? asset('images/default-menu.jpg') }}" 
+                                class="w-16 h-16 rounded-lg object-cover" 
+                                onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
+                                
                             <div class="flex-1">
                                 <h4 class="font-bold text-sm">{{ $rec->name }}</h4>
                                 <p class="text-red-600 font-bold text-sm">Rp{{ number_format($rec->price, 0, ',', '.') }}</p>
@@ -40,7 +43,7 @@
                             
                             {{-- Tombol Rekomendasi AJAX --}}
                             <button type="button" onclick="addToCartDetail('{{ $rec->id }}', 1, '')" 
-                                class="bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-sm hover:bg-red-50 text-xl font-bold">+</button>
+                                    class="bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-sm hover:bg-red-50 text-xl font-bold">+</button>
                         </div>
                     @endforeach
                 </div>

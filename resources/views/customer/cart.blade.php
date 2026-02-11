@@ -19,9 +19,9 @@
             @foreach($cart as $id => $details)
                 @php $total += $details['price'] * $details['qty'] @endphp
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 md:p-6 flex items-start md:items-center gap-4 md:gap-6">
-                    <img src="{{ !empty($details['image_path']) ? asset('storage/' . $details['image_path']) : asset('images/default-menu.jpg') }}" 
-                         class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover flex-shrink-0" 
-                         onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
+                    <img src="{{ !empty($details['image_path']) ? $details['image_path'] : asset('images/default-menu.jpg') }}" 
+                    class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover flex-shrink-0" 
+                    onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
                     
                     <div class="flex-1 min-w-0"> <h3 class="text-base md:text-xl font-bold text-gray-800 uppercase truncate">{{ $details['name'] }}</h3>
                         <p class="text-red-600 font-bold text-sm md:text-base">Rp{{ number_format($details['price'], 0, ',', '.') }}</p>

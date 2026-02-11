@@ -36,11 +36,10 @@
         <div class="group bg-white rounded-xl md:rounded-2xl shadow-md md:shadow-lg overflow-hidden transition transform active:scale-95 md:hover:scale-[1.03] duration-300 border border-gray-100 flex flex-col h-full">
             
             {{-- 1. Gambar Menu: Tinggi Tetap (Fixed Height) --}}
-            <div class="h-32 md:h-52 bg-gray-200 overflow-hidden relative flex-shrink-0">
-                <img src="{{ !empty($menu->image_path) ? asset('storage/' . $menu->image_path) : asset('images/default-menu.jpg') }}" 
-                     alt="{{ $menu->name }}" 
-                     class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
-                     onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
+            <img src="{{ !empty($menu->image_path) ? $menu->image_path : asset('images/default-menu.jpg') }}" 
+                alt="{{ $menu->name }}" 
+                class="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+                onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
                 
                 {{-- Badge Kategori --}}
                 <div class="absolute top-2 left-2 md:top-3 md:left-3">
