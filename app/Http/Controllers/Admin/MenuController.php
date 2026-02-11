@@ -36,40 +36,40 @@ class MenuController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', 
         ]);
 
-        try {
-            // 2. Cek File
+            try {
             if (!$request->hasFile('image')) {
-                return back()->with('error', 'File gambar tidak terdeteksi.');
+                return back()->with('error', 'File tidak ditemukan.');
             }
 
-            // 3. Upload Langsung ke Cloudinary
-            // Di Laravel 11+, kita bisa langsung pakai helper upload()
             $file = $request->file('image');
-            $upload = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::upload($file->getRealPath(), [
+            
+            // Versi ini lebih stabil untuk Laravel 11/12
+            $upload = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::uploadApi()->upload($file->getRealPath(), [
                 'folder' => 'menus_resto'
             ]);
 
-            $path = $upload->getSecurePath();
+            // Mengambil URL dengan cara yang lebih aman dari hasil upload
+            $path = $upload['secure_url'] ?? null;
 
-            // 4. Simpan ke Database Railway
+            if (!$path) {
+                return back()->with('error', 'Cloudinary gagal memberikan URL. Cek API Key di Vercel.');
+            }
+
             \App\Models\Menu::create([
                 'name' => $request->name,
                 'slug' => \Illuminate\Support\Str::slug($request->name),
                 'category_id' => $request->category_id,
                 'price' => $request->price,
                 'description' => $request->description,
-                'image_path' => $path, // Sesuai kolom di DB kamu
+                'image_path' => $path,
                 'is_available' => true
             ]);
 
             return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan!');
             
         } catch (\Exception $e) {
-            // Catat error ke log Vercel agar bisa kita intip nanti
-            \Illuminate\Support\Facades\Log::error('Upload Error: ' . $e->getMessage());
-            
-            // Tampilkan pesan error di halaman agar tidak cuma refresh
-            return back()->withInput()->with('error', 'Gagal: ' . $e->getMessage());
+            // Jika masih error, kita ingin tahu error aslinya dari Cloudinary itu apa
+            return back()->withInput()->with('error', 'Masalah: ' . $e->getMessage());
         }
     }
 
