@@ -27,6 +27,7 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
+        // 1. Validasi - pastikan name di input form sama dengan di sini
         $request->validate([
             'name' => 'required|max:255',
             'category_id' => 'required|exists:categories,id',
@@ -36,18 +37,25 @@ class MenuController extends Controller
         ]);
 
         try {
-            // 1. Upload ke Cloudinary
-            $upload = Cloudinary::upload($request->file('image')->getRealPath(), [
+            // 2. Cek apakah file benar-benar sampai ke server Vercel
+            if (!$request->hasFile('image')) {
+                dd('Error: File gambar tidak terbaca oleh server. Cek kembali tag form kamu.');
+            }
+
+            // 3. Upload langsung ke Cloudinary menggunakan Path asli file sementara
+            // Kita tidak pakai Storage:: karena Vercel itu read-only
+            $file = $request->file('image');
+            $upload = Cloudinary::upload($file->getRealPath(), [
                 'folder' => 'menus_resto'
             ]);
 
-            // 2. Ambil URL aman
+            // 4. Ambil URL hasil upload
             $path = $upload->getSecurePath();
 
-            // 3. Simpan ke Database
+            // 5. Simpan ke Database Railway
             Menu::create([
                 'name' => $request->name,
-                'slug' => Str::slug($request->name),
+                'slug' => \Illuminate\Support\Str::slug($request->name),
                 'category_id' => $request->category_id,
                 'price' => $request->price,
                 'description' => $request->description,
@@ -58,7 +66,8 @@ class MenuController extends Controller
             return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan!');
             
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal upload ke Cloudinary: ' . $e->getMessage());
+            // Jika ada error (Cloudinary gagal, DB penuh, dll), tampilkan di layar
+            dd("Terjadi Error: " . $e->getMessage());
         }
     }
 
