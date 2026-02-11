@@ -7,12 +7,22 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-
+use Cloudinary\Cloudinary;
 
 class MenuController extends Controller
 {
+    // Konfigurasi Cloudinary Manual agar aman di Vercel
+    private function getCloudinary()
+    {
+        return new Cloudinary([
+            'cloud' => [
+                'cloud_name' => 'dksbtxo4b',
+                'api_key'    => '417616867997447',
+                'api_secret' => 'fddU0eCPMni8FgtZMAfUzf8ijWg',
+            ],
+        ]);
+    }
+
     public function index()
     {
         $menus = Menu::with('category')->latest()->get();
@@ -27,7 +37,6 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi
         $request->validate([
             'name' => 'required|max:255',
             'category_id' => 'required|exists:categories,id',
@@ -36,28 +45,25 @@ class MenuController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', 
         ]);
 
-            try {
+        try {
             if (!$request->hasFile('image')) {
                 return back()->with('error', 'File tidak ditemukan.');
             }
 
             $file = $request->file('image');
-            
-            // Versi ini lebih stabil untuk Laravel 11/12
-            $upload = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::uploadApi()->upload($file->getRealPath(), [
+            $cloudinary = $this->getCloudinary();
+
+            // Upload ke Cloudinary
+            $upload = $cloudinary->uploadApi()->upload($file->getRealPath(), [
                 'folder' => 'menus_resto'
             ]);
 
-            // Mengambil URL dengan cara yang lebih aman dari hasil upload
-            $path = $upload['secure_url'] ?? null;
+            // Ambil URL aman (secure_url)
+            $path = $upload['secure_url'];
 
-            if (!$path) {
-                return back()->with('error', 'Cloudinary gagal memberikan URL. Cek API Key di Vercel.');
-            }
-
-            \App\Models\Menu::create([
+            Menu::create([
                 'name' => $request->name,
-                'slug' => \Illuminate\Support\Str::slug($request->name),
+                'slug' => Str::slug($request->name),
                 'category_id' => $request->category_id,
                 'price' => $request->price,
                 'description' => $request->description,
@@ -68,8 +74,7 @@ class MenuController extends Controller
             return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan!');
             
         } catch (\Exception $e) {
-            // Jika masih error, kita ingin tahu error aslinya dari Cloudinary itu apa
-            return back()->withInput()->with('error', 'Masalah: ' . $e->getMessage());
+            return back()->withInput()->with('error', 'Gagal Simpan: ' . $e->getMessage());
         }
     }
 
@@ -87,7 +92,7 @@ class MenuController extends Controller
             'price' => 'required|numeric',
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'is_available' => 'required|boolean', 
+            'is_available' => 'required', 
         ]);
 
         $data = [
@@ -101,19 +106,17 @@ class MenuController extends Controller
 
         if ($request->hasFile('image')) {
             try {
-                // Hapus gambar lama jika gambar tersebut adalah file lokal (bukan URL Cloudinary)
-                if ($menu->image_path && !filter_var($menu->image_path, FILTER_VALIDATE_URL)) {
-                    Storage::disk('public')->delete($menu->image_path);
-                }
-                
-                // Upload gambar baru ke Cloudinary
-                $upload = Cloudinary::upload($request->file('image')->getRealPath(), [
+                $file = $request->file('image');
+                $cloudinary = $this->getCloudinary();
+
+                $upload = $cloudinary->uploadApi()->upload($file->getRealPath(), [
                     'folder' => 'menus_resto'
                 ]);
-                $data['image_path'] = $upload->getSecurePath();
+
+                $data['image_path'] = $upload['secure_url'];
 
             } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Gagal update gambar ke Cloudinary: ' . $e->getMessage());
+                return redirect()->back()->with('error', 'Gagal update gambar: ' . $e->getMessage());
             }
         }
 
@@ -123,14 +126,9 @@ class MenuController extends Controller
 
     public function destroy(Menu $menu)
     {
-        // Jika gambarnya adalah file lokal, hapus dari storage lokal
-        if ($menu->image_path && !filter_var($menu->image_path, FILTER_VALIDATE_URL)) {
-            Storage::disk('public')->delete($menu->image_path);
-        }
-        
-        // Catatan: Untuk menghapus file di Cloudinary lewat code perlu 'public_id'. 
-        // Sementara ini kita hapus record database-nya saja agar aplikasi tidak error.
-
+        // Langsung hapus dari database
+        // Catatan: Menghapus di Cloudinary butuh public_id, 
+        // untuk saat ini kita hapus record DB agar aplikasi lancar dulu.
         $menu->delete();
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil dihapus!');
     }
