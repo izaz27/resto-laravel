@@ -32,9 +32,15 @@ Route::get('/gas-seed', function () {
     }
 });
 
-Route::get('/prepare-storage', function () {
-    Artisan::call('storage:link');
-    return "Storage link created!";
+Route::get('/gas-storage', function () {
+    try {
+        // Menjalankan perintah php artisan storage:link
+        Artisan::call('storage:link');
+        return "Storage link berhasil dibuat! <br> Sekarang folder 'public/storage' sudah terhubung ke 'storage/app/public'.";
+    } catch (\Exception $e) {
+        // Jika folder sudah ada, biasanya akan masuk ke sini
+        return "Gagal atau sudah pernah dibuat: " . $e->getMessage();
+    }
 });
 
 /*
