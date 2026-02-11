@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class MenuController extends Controller
 {
@@ -24,31 +25,43 @@ class MenuController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|max:255',
-            'category_id' => 'required|exists:categories,id',
-            'price' => 'required|numeric',
-            'description' => 'nullable',
-            // Nama input di form tetap 'image'
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', 
+{
+    $request->validate([
+        'name' => 'required|max:255',
+        'category_id' => 'required|exists:categories,id',
+        'price' => 'required|numeric',
+        'description' => 'nullable',
+        'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', 
+    ]);
+
+    try {
+        // 2. Upload file ke Cloudinary (menggantikan $request->file('image')->store(...))
+        // Kita simpan di folder 'menus_resto' agar rapi di dashboard Cloudinary
+        $upload = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'folder' => 'menus_resto'
         ]);
 
-        // Simpan file ke storage
-        $path = $request->file('image')->store('menus', 'public');
+        // 3. Ambil URL aman (https) dari Cloudinary
+        $path = $upload->getSecurePath();
 
+        // 4. Simpan ke database Railway melalui Eloquent
         Menu::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'category_id' => $request->category_id,
             'price' => $request->price,
             'description' => $request->description,
-            'image_path' => $path, // DISESUAIKAN: Menggunakan kolom image_path
+            'image_path' => $path, // Sekarang berisi URL https://res.cloudinary.com/...
             'is_available' => true
         ]);
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu berhasil ditambahkan!');
+        
+    } catch (\Exception $e) {
+        // Jika ada masalah koneksi ke Cloudinary
+        return redirect()->back()->with('error', 'Gagal upload gambar: ' . $e->getMessage());
     }
+}
 
     public function edit(Menu $menu)
     {
