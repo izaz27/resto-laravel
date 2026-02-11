@@ -9,6 +9,24 @@ use App\Http\Controllers\Kasir\DashboardController;
 use App\Http\Controllers\Customer\MenuController as CustomerMenuController;
 use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Admin\MenuController;
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    
+    // Route Resource untuk Menu (Otomatis mencakup index, create, store, edit, update, destroy)
+    Route::resource('menu', MenuController::class);
+    
+    // Jika kamu punya Dashboard Admin, tambahkan di sini juga
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard'); // Sesuaikan dengan view dashboard admin kamu
+    })->name('dashboard');
+});
 
 Route::get('/gas-migrate', function () {
     try {
