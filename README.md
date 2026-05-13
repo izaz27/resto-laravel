@@ -51,19 +51,19 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
     DB_PASSWORD=
 
 **Link Storage**
-    ```
+    
     php artisan storage:link
 
 **jalankan migrasi & seeder**
-    ```
+    
     php artisan migrate --seed
 
 **jalankan program**
-    ```
+    
     php artisan serve
 
 **akses web**
-    ```
+    
     http://localhost:8000
 
 
@@ -72,8 +72,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-## 
-```
+## struktur folder
 resto
 ├─ .editorconfig
 ├─ app
