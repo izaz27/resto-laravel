@@ -12,7 +12,7 @@
         <div class="relative -mt-16 md:-mt-24 bg-white rounded-3xl shadow-xl p-6 md:p-8 border border-gray-100 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8">
             
             {{-- Logo Container: Ukuran lebih proporsional di mobile --}}
-            <div class="flex-shrink-0">
+            <div class="shrink-0">
                 <div class="w-32 h-32 md:w-40 md:h-40 bg-white rounded-2xl shadow-lg flex items-center justify-center p-3 border-4 border-white transform md:-rotate-3">
                     <img src="{{ asset('images/logo.png') }}" class="w-full h-full object-contain" alt="Logo">
                 </div>

@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            // UserSeeder::class, 
-            // CategorySeeder::class,  <-- Komentari jika tidak ingin jalan
-            // MenuSeeder::class,      <-- Komentari jika tidak ingin jalan
-            RestaurantInfoSeeder::class,
+            UserSeeder::class, 
+            // CategorySeeder::class,  
+            // MenuSeeder::class,      
+            // RestaurantInfoSeeder::class,
         ]);
     }
 }

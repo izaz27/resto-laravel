@@ -41,7 +41,7 @@ Route::get('/gas-seed', function () {
     try {
         // Kita panggil spesifik UserSeeder saja sesuai permintaanmu
         Artisan::call('db:seed', [
-            '--class' => 'UserSeeder',
+            '--class' => 'RestaurantInfoSeeder',
             '--force' => true
         ]);
         return "UserSeeder berhasil dijalankan! <br> Silakan <a href='/login'>Login di sini</a>.";
