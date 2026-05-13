@@ -63,11 +63,12 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
     php artisan serve
 
 **akses web**
-    user:
+
+user:
 
     http://localhost:8000
 
-    admin & kasir
+admin & kasir
 
     http://localhost:8000/login
 
@@ -83,7 +84,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
     customer tidak perlu login!
 
-    
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
