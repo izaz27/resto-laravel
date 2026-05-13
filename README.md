@@ -23,24 +23,24 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 ## Cara setup
 **Clone Repositori**
-    ```
+
    git clone
    cd nama-repo
 
 **Install composer**
-    ```
+    
     composer install
 
 **dependensi npm for tailwindcss4**
-    ```
+    
     npm install && npm run build
 
 **Salin .env**
-    ```
+    
     cp .env.example .env
 
 **Generate Application Key**
-    ```
+    
     php artisan key:generate
   
     DB_CONNECTION=mysql
