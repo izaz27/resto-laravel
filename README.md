@@ -84,6 +84,9 @@ admin & kasir
 
     customer tidak perlu login!
 
+**catatan**
+
+    jika menu kosong, silahkan tambah kategori dan menu di laman Admin!
 
 ## License
 
