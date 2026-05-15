@@ -14,7 +14,7 @@
     </div>
 
     <h1 class="text-4xl font-black text-gray-900 mb-2">PESANAN DITERIMA!</h1>
-    <p class="text-gray-500 text-lg mb-8">Mohon tunggu sejenak, koki kami sedang menyiapkan hidangan lezat untuk Anda.</p>
+    <p class="text-gray-200 text-lg mb-8">Mohon tunggu sejenak, koki kami sedang menyiapkan hidangan lezat untuk Anda.</p>
 
     {{-- Ringkasan Pesanan --}}
     <div class="bg-white border-2 border-dashed border-gray-200 rounded-3xl p-8 mb-8 text-left">
@@ -36,14 +36,14 @@
                 <span class="font-medium">Rp{{ number_format($item->price * $item->qty, 0, ',', '.') }}</span>
             </div>
             @if($item->note)
-                <p class="text-xs text-red-500 italic mt-1">- "{{ $item->note }}"</p>
+                <p class="text-xs text-blue-500 italic mt-1">- "{{ $item->note }}"</p>
             @endif
             @endforeach
         </div>
 
         <div class="pt-4 border-t-2 border-gray-100 flex justify-between items-center">
             <span class="text-lg font-bold text-gray-900">Total Pembayaran</span>
-            <span class="text-2xl font-black text-red-600">Rp{{ number_format($order->total_price, 0, ',', '.') }}</span>
+            <span class="text-2xl font-black text-green-500">Rp{{ number_format($order->total_price, 0, ',', '.') }}</span>
         </div>
     </div>
 
@@ -67,7 +67,7 @@
     </div>
 
     {{-- Tombol Kembali --}}
-    <a href="{{ route('customer.menu.index') }}" class="inline-block w-full bg-gray-900 text-white font-bold py-4 rounded-2xl hover:bg-gray-800 transition active:scale-95">
+    <a href="{{ route('customer.menu.index') }}" class="inline-block w-full bg-gray-700 text-white font-bold py-4 rounded-2xl hover:bg-gray-800 transition active:scale-95">
         Pesan Menu Lainnya
     </a>
 </div>

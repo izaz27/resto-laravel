@@ -3,13 +3,13 @@
 @section('content')
 <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
     <div class="flex justify-between items-center mb-8">
-        <h2 class="text-2xl font-black text-gray-800">Daftar Pesanan</h2>
+        <h2 class="text-2xl font-black text-gray-800">DAFTAR PESANAN</h2>
     </div>
     <form action="{{ route('admin.order.clearHistory') }}" method="POST" onsubmit="return confirm('Hapus semua riwayat pesanan yang sudah selesai?')">
         @csrf
         @method('DELETE')
         <div class="flex justify-end ">
-        <button type="submit" class="text-xs bg-red-100 text-red-500 px-4 py-2 rounded hover:bg-red-200 hover:text-red-600 transition font-bold uppercase">
+        <button type="submit" class="text-xs bg-blue-100 text-blue-500 px-4 py-2 rounded hover:bg-blue-200 hover:text-blue-600 transition font-bold uppercase">
             Bersihkan Riwayat Selesai
         </button>
         </div>
@@ -32,7 +32,7 @@
                 <tr>
                     <td class="py-4 font-bold">#{{ $order->order_code }}</td>
                     <td class="py-4 text-gray-600">Meja {{ $order->table_numbers }}</td>
-                    <td class="py-4 font-bold text-red-600">Rp{{ number_format($order->total_price, 0, ',', '.') }}</td>
+                    <td class="py-4 font-bold text-green-600">Rp{{ number_format($order->total_price, 0, ',', '.') }}</td>
                     <td class="py-4 uppercase text-xs font-bold">{{ $order->payment_method }}</td>
                     <td class="py-4">
                         <span class="px-3 py-1 rounded text-xs font-bold 

@@ -11,7 +11,7 @@
     {{-- Memuat Tailwind CSS melalui Vite --}}
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-50 font-sans antialiased">
+<body class="bg-gray-900 font-sans antialiased">
     
     {{-- BAGIAN 1: NAVBAR (Jika suatu saat ingin diaktifkan kembali) --}}
     {{-- 

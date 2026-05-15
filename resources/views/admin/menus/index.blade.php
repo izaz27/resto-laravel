@@ -5,11 +5,11 @@
     {{-- Header --}}
     <div class="flex justify-between items-center mb-8">
         <div>
-            <h1 class="text-2xl font-black text-gray-800 uppercase italic tracking-tighter">Daftar Menu</h1>
+            <h1 class="text-2xl font-black text-gray-800 uppercase tracking-tighter">Daftar Menu</h1>
             <p class="text-gray-400 text-xs uppercase">Kelola item makanan dan minuman</p>
         </div>
-        <a href="{{ route('admin.menu.create') }}" class="bg-red-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition shadow-lg shadow-red-100 flex items-center gap-2">
-            <span>+ TAMBAH MENU</span>
+        <a href="{{ route('admin.menu.create') }}" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-100 flex items-center gap-2">
+            <span>TAMBAH MENU</span>
         </a>
     </div>
 
@@ -49,7 +49,7 @@
                     </td>
 
                     {{-- Harga --}}
-                    <td class="py-4 font-black text-red-600 text-sm">
+                    <td class="py-4 font-black text-green-600 text-sm">
                         Rp{{ number_format($menu->price, 0, ',', '.') }}
                     </td>
 

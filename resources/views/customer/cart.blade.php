@@ -4,11 +4,11 @@
 <div class="max-w-5xl mx-auto py-6 md:py-10 px-4">
     <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
         <a href="{{ route('customer.menu.index') }}" class="p-2 rounded-full hover:bg-gray-100 transition duration-200 border border-gray-200 shadow-sm">
-            <svg class="w-5 h-5 md:w-7 md:h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
         </a>
-        <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800">Keranjang</h1>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-white">Keranjang</h1>
     </div>
 
     @if(session('cart') && count(session('cart')) > 0)
@@ -20,11 +20,11 @@
                 @php $total += $details['price'] * $details['qty'] @endphp
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 md:p-6 flex items-start md:items-center gap-4 md:gap-6">
                     <img src="{{ !empty($details['image_path']) ? $details['image_path'] : asset('images/default-menu.jpg') }}" 
-                    class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover flex-shrink-0" 
+                    class="w-20 h-20 md:w-24 md:h-24 rounded-xl object-cover shrink-0" 
                     onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
                     
                     <div class="flex-1 min-w-0"> <h3 class="text-base md:text-xl font-bold text-gray-800 uppercase truncate">{{ $details['name'] }}</h3>
-                        <p class="text-red-600 font-bold text-sm md:text-base">Rp{{ number_format($details['price'], 0, ',', '.') }}</p>
+                        <p class="text-blue-600 font-bold text-sm md:text-base">Rp{{ number_format($details['price'], 0, ',', '.') }}</p>
                         
                         @if(!empty($details['note']))
                             <p class="text-[10px] md:text-xs text-gray-400 mt-1 italic leading-tight">Catatan: {{ $details['note'] }}</p>
@@ -39,7 +39,7 @@
                             <form action="{{ route('customer.cart.remove', $id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-400 p-1">
+                                <button type="submit" class="text-blue-400 p-1">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
                             </form>
@@ -64,23 +64,23 @@
                 </div>
             @endforeach
             
-            <a href="{{ route('customer.menu.index') }}" class="inline-block text-red-600 font-bold mt-2 text-sm md:text-base hover:underline">
-                + Tambah Menu Lain
+            <a href="{{ route('customer.menu.index') }}" class="inline-block text-green-400 font-bold mt-2 text[20px] md:text-base hover:underline">
+                Tambah Menu Lain
             </a>
         </div>
 
         {{-- Sidebar Ringkasan --}}
         <div class="space-y-4">
-            <div class="p-4 bg-red-50 rounded-xl border border-red-100">
-                <h3 class="text-xs font-bold text-red-800 uppercase mb-2">Meja Pesanan</h3>
+            <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <h3 class="text-xs font-bold text-blue-800 uppercase mb-2">Meja Pesanan</h3>
                 <div class="flex flex-wrap gap-2">
                     @if(session()->has('selected_tables'))
                         @foreach(session('selected_tables') as $table)
-                            <span class="bg-white border border-red-200 text-red-600 px-3 py-1 rounded-lg text-xs font-bold">Meja {{ $table }}</span>
+                            <span class="bg-white border border-green-200 text-green-600 px-3 py-1 rounded-lg text-xs font-bold">Meja {{ $table }}</span>
                         @endforeach
                     @else
                         <span id="no-table-indicator" class="text-gray-400 text-[10px] md:text-xs italic">Belum memilih meja</span>
-                        <a href="{{ route('customer.table.index') }}" class="text-[10px] md:text-xs text-red-600 underline ml-2 font-bold">Pilih Sekarang</a>
+                        <a href="{{ route('customer.table.index') }}" class="text-[10px] md:text-xs text-blue-600 underline ml-2 font-bold">Pilih Sekarang</a>
                     @endif
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     </span>
                 </div>
 
-                <button type="button" onclick="openPaymentModal()" class="w-full bg-red-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg hover:bg-red-700 transition">
+                <button type="button" onclick="openPaymentModal()" class="w-full bg-blue-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg hover:bg-blue-700 transition">
                     Pesan Sekarang
                 </button>
             </div>
@@ -106,7 +106,7 @@
             <svg class="w-16 h-16 md:w-20 md:h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
         </div>
         <p class="text-gray-500 text-base md:text-lg italic">Wah, keranjangmu kosong melompong.</p>
-        <a href="{{ route('customer.menu.index') }}" class="mt-6 inline-block bg-red-600 text-white px-8 py-3 rounded-full font-bold shadow-md">Cari Makan Yuk!</a>
+        <a href="{{ route('customer.menu.index') }}" class="mt-6 inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-bold shadow-md">Cari Makan Yuk!</a>
     </div>
     @endif
 </div>
@@ -134,13 +134,13 @@
                     <label class="relative flex items-center p-4 border-2 border-gray-100 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-gray-50 group">
                         <input type="radio" name="payment_method" value="cash" class="peer hidden" checked>
                         {{-- Border Effect: Otomatis merah saat peer dicentang --}}
-                        <div class="absolute inset-0 border-2 border-transparent peer-checked:border-red-600 rounded-2xl pointer-events-none transition-all"></div>
+                        <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-600 rounded-2xl pointer-events-none transition-all"></div>
                         
                         <div class="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>
                         <div class="flex-1">
-                            <span class="block font-bold text-gray-800 text-sm md:text-base peer-checked:text-red-600">Bayar di Kasir</span>
+                            <span class="block font-bold text-gray-800 text-sm md:text-base peer-checked:text-blue-600">Bayar di Kasir</span>
                             <span class="text-[10px] md:text-xs text-gray-500">Tunai setelah makan</span>
                         </div>
                     </label>
@@ -149,7 +149,7 @@
                     <label class="relative flex items-center p-4 border-2 border-gray-100 rounded-2xl cursor-pointer transition-all duration-200 hover:bg-gray-50 group">
                         <input type="radio" name="payment_method" value="qris" class="peer hidden">
                         {{-- Border Effect --}}
-                        <div class="absolute inset-0 border-2 border-transparent peer-checked:border-red-600 rounded-2xl pointer-events-none transition-all"></div>
+                        <div class="absolute inset-0 border-2 border-transparent peer-checked:border-blue-600 rounded-2xl pointer-events-none transition-all"></div>
                         
                         <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
@@ -163,7 +163,7 @@
                 
                 <div class="grid grid-cols-2 gap-4 mt-6 flex-shrink-0 pb-2">
                     <button type="button" onclick="closePaymentModal()" class="py-3 md:py-4 font-bold text-gray-400">Batal</button>
-                    <button type="submit" class="bg-red-600 text-white font-bold py-3 md:py-4 rounded-2xl shadow-lg hover:bg-red-700 active:scale-95 transition-all">
+                    <button type="submit" class="bg-blue-600 text-white font-bold py-3 md:py-4 rounded-2xl shadow-lg hover:bg-blue-700 active:scale-95 transition-all">
                         Konfirmasi
                     </button>
                 </div>
@@ -174,10 +174,10 @@
 <style>
     /* CSS tambahan untuk memastikan visual border radio button bekerja di Tailwind 4 */
     input[type="radio"]:checked ~ div.flex-1 + div {
-        border-color: #dc2626; /* red-600 */
+        border-color: #1430ce; /* red-600 */
     }
     input[type="radio"]:checked ~ .flex-1 span.block {
-        color: #dc2626;
+        color: #1430ce;
     }
     .custom-scrollbar::-webkit-scrollbar { width: 4px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
@@ -196,7 +196,7 @@
             <h3 class="text-xl font-black text-gray-900 mb-2">Meja Belum Dipilih</h3>
             <p class="text-gray-500 mb-8 text-sm leading-relaxed">Pilih nomor meja dulu ya supaya pesananmu tidak tertukar dengan pelanggan lain.</p>
             <div class="flex flex-col gap-3">
-                <a href="{{ route('customer.table.index') }}" class="bg-red-600 text-white font-bold py-4 rounded-2xl shadow-lg">
+                <a href="{{ route('customer.table.index') }}" class="bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg">
                     Pilih Nomor Meja
                 </a>
                 <button type="button" onclick="closeWarningModal()" class="text-gray-400 font-bold py-2">Batal</button>

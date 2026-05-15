@@ -4,10 +4,10 @@
 @section('content')
 <div class="p-6">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-black text-gray-800 uppercase italic">Laporan <span class="text-red-600">Pendapatan</span></h2>
+        <h2 class="text-2xl font-black text-white uppercase">Laporan <span class="text-blue-600">Pendapatan</span></h2>
         
         {{-- Tombol untuk Download PDF --}}
-        <a href="{{ route('admin.laporan.ekspor') }}" class="bg-emerald-600 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all">
+        <a href="{{ route('admin.laporan.ekspor') }}" class="bg-green-500 text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-green-600 transition-all">
             Download PDF
         </a>
     </div>
@@ -16,7 +16,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
             <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Omzet Hari Ini</span>
-            <h3 class="text-2xl font-black text-emerald-600 italic">Rp {{ number_format($orders->sum('total_price'), 0, ',', '.') }}</h3>
+            <h3 class="text-2xl font-black text-green-500 italic">Rp {{ number_format($orders->sum('total_price'), 0, ',', '.') }}</h3>
         </div>
         <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
             <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-2">Total Transaksi</span>
@@ -46,7 +46,7 @@
                     <td class="p-4 text-sm font-bold text-gray-600">{{ $index + 1 }}</td>
                     <td class="p-4 text-sm font-black text-gray-800">#{{ $order->order_code }}</td>
                     <td class="p-4 text-sm font-bold text-gray-600">{{ $order->table_numbers }}</td>
-                    <td class="p-4 text-sm font-black text-red-600">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
+                    <td class="p-4 text-sm font-black text-green-500">Rp {{ number_format($order->total_price, 0, ',', '.') }}</td>
                 </tr>
                 @endforeach
             </tbody>

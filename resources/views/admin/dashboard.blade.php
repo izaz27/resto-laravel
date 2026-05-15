@@ -4,8 +4,8 @@
 <div class="p-2">
     <div class="flex justify-between items-center mb-8">
         <div>
-            <h1 class="text-2xl font-black text-gray-800 tracking-tighter uppercase">Dashboard Admin</h1>
-            <p class="text-gray-500 text-sm">Selamat datang kembali, {{ auth()->user()->name }}!</p>
+            <h2 class="text-2xl font-black text-white uppercase">DASHBOARD <span class="text-blue-600">ADMIN</span></h2>
+            <p class="text-gray-300 text-sm">Selamat datang kembali, {{ auth()->user()->name }}!</p>
         </div>
         <div class="text-right">
             <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Status Dapur</p>
@@ -38,7 +38,7 @@
     </div>
 
     {{-- Menu Navigasi Cepat --}}
-    <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Navigasi Cepat</h3>
+    <h3 class="text-xs font-black text-gray-300 uppercase tracking-widest mb-4">Navigasi Cepat</h3>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <a href="{{ route('admin.menu.index') }}" class="p-6 bg-white border border-gray-100 rounded-3xl text-center hover:shadow-md transition-all group">
             <span class="block text-2xl mb-1 group-hover:scale-110 transition">📦</span>

@@ -3,8 +3,8 @@
 @section('content')
 <div class="max-w-4xl mx-auto py-12 px-4">
     <div class="text-center mb-10">
-        <h1 class="text-3xl font-black text-gray-800 uppercase">Nomor Meja Pesanan</h1>
-        <p class="text-gray-500 mt-2">Kamu bisa memilih lebih dari satu meja jika datang rombongan</p>
+        <h1 class="text-3xl font-black text-white uppercase">Nomor Meja Pesanan</h1>
+        <p class="text-gray-100 mt-2">Kamu bisa memilih lebih dari satu meja jika datang rombongan</p>
     </div>
 
     {{-- Tambahkan ID pada form agar bisa di-submit via JavaScript --}}
@@ -15,7 +15,7 @@
                 <label class="cursor-pointer group">
                     {{-- Pastikan name adalah 'table_numbers[]' agar sesuai dengan controller --}}
                     <input type="checkbox" name="table_numbers[]" value="{{ $table }}" class="hidden peer">
-                    <div class="aspect-square flex flex-col items-center justify-center border-2 border-gray-100 rounded-2xl bg-white shadow-sm transition peer-checked:border-red-600 peer-checked:bg-red-50 group-hover:shadow-md">
+                    <div class="aspect-square flex flex-col items-center justify-center border-2 border-gray-100 rounded-2xl bg-white shadow-sm transition peer-checked:border-emerald-600 peer-checked:bg-emerald-100 group-hover:shadow-md">
                         <span class="text-xs text-gray-400 uppercase font-bold">Meja</span>
                         <span class="text-3xl font-black text-gray-800">{{ $table }}</span>
                     </div>
@@ -25,7 +25,7 @@
 
         <div class="mt-12 flex justify-center">
             {{-- Ubah type menjadi 'button' agar tidak langsung submit --}}
-            <button type="button" onclick="validateTableSelection()" class="bg-red-600 text-white px-12 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-red-700 transition transform hover:scale-105 active:scale-95">
+            <button type="button" onclick="validateTableSelection()" class="bg-blue-600 text-white px-12 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-blue-700 transition transform hover:scale-105 active:scale-95">
                 Konfirmasi & Lihat Menu
             </button>
         </div>
@@ -48,7 +48,7 @@
             <h3 class="text-xl font-black text-gray-900 mb-2">Meja Belum Dipilih</h3>
             <p class="text-gray-500 mb-8 text-sm">Silakan pilih minimal satu nomor meja tempat Anda duduk agar kami bisa mengantar pesanan.</p>
             
-            <button type="button" onclick="closeWarningModal()" class="w-full bg-red-600 text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-red-700 transition">
+            <button type="button" onclick="closeWarningModal()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-blue-700 transition">
                 Oke, Saya Pilih Meja
             </button>
         </div>

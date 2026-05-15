@@ -8,8 +8,8 @@
             <i data-lucide="arrow-left" class="w-6 h-6 text-gray-800"></i>
         </a>
         <div>
-            <h1 class="text-3xl font-black text-gray-800 uppercase italic tracking-tighter">Detail Pesanan <span class="text-red-600">#{{ $order->order_code }}</span></h1>
-            <p class="text-gray-500 text-sm italic font-medium">Dipesan pada {{ $order->created_at->format('d M Y, H:i') }} WIB</p>
+            <h1 class="text-3xl font-black text-white uppercase tracking-tighter">Detail Pesanan <span class="text-green-400">#{{ $order->order_code }}</span></h1>
+            <p class="text-gray-200 text-sm font-medium">Dipesan pada {{ $order->created_at->format('d M Y, H:i') }} WIB</p>
         </div>
     </div>
 
@@ -21,13 +21,12 @@
                 <div class="space-y-6">
                     @foreach($order->details as $detail)
                     <div class="flex items-center gap-6 p-4 rounded-2xl border border-gray-50 bg-gray-50/30">
-                        <img src="{{ asset('storage/' . $detail->menu->image_path) }}" 
-                             class="w-20 h-20 rounded-xl object-cover shadow-sm border border-white"
-                             onerror="this.src='{{ asset('images/default-menu.jpg') }}'">
-                        
+                        <img src="{{ $detail->menu->image_path ? $detail->menu->image_path : asset('images/default-menu.jpg') }}" 
+                        class="w-20 h-20 rounded-xl object-cover shadow-sm border border-white"
+                        onerror="this.src='{{ asset('images/default-menu.jpg') }}'">    
                         <div class="flex-1">
                             <h4 class="font-black text-gray-800 text-lg uppercase italic">{{ $detail->menu->name }}</h4>
-                            <p class="text-red-600 font-bold text-sm">Rp{{ number_format($detail->price, 0, ',', '.') }} <span class="text-gray-400">x</span> {{ $detail->qty }}</p>
+                            <p class="text-green-600 font-bold text-sm">Rp{{ number_format($detail->price, 0, ',', '.') }} <span class="text-gray-400">x</span> {{ $detail->qty }}</p>
                             @if($detail->note && $detail->note !== '-')
                                 <div class="mt-2 text-[10px] bg-yellow-50 text-yellow-700 px-3 py-1 rounded-lg inline-block border border-yellow-100 font-bold uppercase tracking-tight">
                                     Catatan: {{ $detail->note }}

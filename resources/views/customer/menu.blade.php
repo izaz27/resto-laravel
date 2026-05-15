@@ -8,23 +8,23 @@
     {{-- Header --}}
     <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
         <a href="{{ url('/') }}" class="p-2 rounded-full hover:bg-gray-100 transition duration-200 border border-gray-200 shadow-sm">
-            <svg class="w-5 h-5 md:w-7 md:h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
         </a>
-        <h2 class="text-2xl md:text-4xl font-extrabold text-gray-800 border-b-4 border-red-600 pb-1">Semua Menu</h2>
+        <h2 class="text-2xl md:text-4xl font-extrabold text-white border-b-4 border-blue-600 pb-1">Semua Menu</h2>
     </div>
 
     {{-- Daftar Kategori --}}
     <div class="flex flex-nowrap overflow-x-auto gap-2 md:gap-3 mb-8 md:mb-10 pb-2 no-scrollbar">
         <a href="{{ route('customer.menu.index') }}" 
-           class="whitespace-nowrap px-5 py-2 {{ !request('category') ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-red-50' }} rounded-full text-sm font-semibold shadow-sm transition border border-gray-200">
+           class="whitespace-nowrap px-5 py-2 {{ !request('category') ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 hover:bg-blue-50' }} rounded-full text-sm font-semibold shadow-sm transition border border-blue-800">
             Semua
         </a>
         
         @foreach ($categories as $category)
             <a href="{{ route('customer.menu.index', ['category' => $category->slug]) }}" 
-               class="whitespace-nowrap px-5 py-2 {{ request('category') == $category->slug ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-red-50' }} border border-gray-300 rounded-full text-sm font-medium transition shadow-sm">
+               class="whitespace-nowrap px-5 py-2 {{ request('category') == $category->slug ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 hover:bg-blue-50' }} border border-blue-800 rounded-full text-sm font-medium transition shadow-sm">
                 {{ $category->name }}
             </a>
         @endforeach
@@ -45,7 +45,7 @@
                 
                 {{-- Badge Kategori --}}
                 <div class="absolute top-2 left-2 z-10">
-                    <span class="text-[8px] md:text-[10px] uppercase tracking-wider font-bold text-white bg-red-600/90 backdrop-blur-sm px-2 py-0.5 rounded-md">
+                    <span class="text-[8px] md:text-[10px] uppercase tracking-wider font-bold text-white bg-blue-600/90 backdrop-blur-sm px-2 py-0.5 rounded-md">
                         {{ $menu->category->name }}
                     </span>
                 </div>
@@ -55,14 +55,14 @@
             <div class="p-3 md:p-5 flex flex-col flex-1">
                 {{-- Judul Menu --}}
                 <div class="min-h-[2.5rem] md:min-h-[3rem] mb-1">
-                    <h3 class="text-sm md:text-lg font-bold text-gray-900 leading-tight line-clamp-2 group-hover:text-red-600 transition">
+                    <h3 class="text-sm md:text-lg font-bold text-gray-900 leading-tight line-clamp-2 group-hover:text-blue-600 transition">
                         {{ $menu->name }}
                     </h3>
                 </div>
                 
                 {{-- Harga --}}
                 <div class="mb-3">
-                    <p class="text-base md:text-xl font-black text-red-600">
+                    <p class="text-base md:text-xl font-black text-blue-600">
                         Rp{{ number_format($menu->price, 0, ',', '.') }}
                     </p>
                 </div>
@@ -76,11 +76,11 @@
                 <div class="mt-auto pt-3 border-t border-gray-50 flex flex-col md:flex-row items-center gap-2">
                     <button type="button" 
                             onclick="addToCart('{{ $menu->id }}')" 
-                            class="w-full bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition text-xs md:text-sm font-bold shadow-sm active:scale-95 cursor-pointer">
-                        + Keranjang
+                            class="w-full bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition text-[18px] font-bold shadow-sm active:scale-95 cursor-pointer">
+                        Keranjang
                     </button>
 
-                    <a href="{{ route('customer.menu.show', $menu->slug) }}" class="text-[11px] md:text-xs text-blue-600 hover:text-blue-800 font-bold underline underline-offset-4">
+                    <a href="{{ route('customer.menu.show', $menu->slug) }}" class="text-[20px] text-blue-600 hover:text-blue-800 font-bold underline underline-offset-4">
                         Detail
                     </a>
                 </div> 
@@ -97,7 +97,7 @@
 {{-- Floating Cart Button (Sistem Tetap Sama) --}}
 <div id="floating-cart" class="fixed bottom-0 left-0 right-0 z-50 w-full px-4 pb-6 transition-all duration-500 transform translate-y-full opacity-0">
     <div class="max-w-md mx-auto">
-        <a href="{{ route('customer.cart.index') }}" class="flex items-center justify-between bg-red-600 text-white p-4 rounded-2xl shadow-2xl hover:bg-red-700 active:scale-95 transition border-2 border-white/20">
+        <a href="{{ route('customer.cart.index') }}" class="flex items-center justify-between bg-blue-500 text-white p-4 rounded-2xl shadow-2xl hover:bg-blue-700 active:scale-95 transition border-2 border-blue-500 hover:border-blue-700">
             <div class="flex items-center">
                 <div class="relative mr-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

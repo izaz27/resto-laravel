@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-    <h1 class="text-2xl font-black text-gray-800 uppercase mb-6 italic tracking-tighter">Edit Menu: {{ $menu->name }}</h1>
+    <h1 class="text-2xl font-black text-gray-800 uppercase mb-6 tracking-tighter">Edit Menu: {{ $menu->name }}</h1>
 
     @if ($errors->any())
     <div class="bg-red-50 text-red-600 p-4 rounded-xl mb-6 text-xs font-bold uppercase tracking-widest border border-red-100">
@@ -23,12 +23,12 @@
                 {{-- Nama & Kategori --}}
                 <div>
                     <label class="block text-xs font-black text-gray-500 uppercase mb-2 tracking-widest">Nama Produk</label>
-                    <input type="text" name="name" value="{{ old('name', $menu->name) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none font-bold" required>
+                    <input type="text" name="name" value="{{ old('name', $menu->name) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-bold" required>
                 </div>
 
                 <div>
                     <label class="block text-xs font-black text-gray-500 uppercase mb-2 tracking-widest">Kategori</label>
-                    <select name="category_id" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none font-bold text-gray-700" required>
+                    <select name="category_id" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-bold text-gray-700" required>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->id }}" {{ $menu->category_id == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                         @endforeach
@@ -37,12 +37,12 @@
 
                 <div>
                     <label class="block text-xs font-black text-gray-500 uppercase mb-2 tracking-widest">Harga (Rp)</label>
-                    <input type="number" name="price" value="{{ old('price', $menu->price) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none font-bold" required>
+                    <input type="number" name="price" value="{{ old('price', $menu->price) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-bold" required>
                 </div>
 
                 <div>
                     <label class="block text-xs font-black text-gray-500 uppercase mb-2 tracking-widest">Deskripsi</label>
-                    <textarea name="description" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none text-sm">{{ old('description', $menu->description) }}</textarea>
+                    <textarea name="description" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-sm">{{ old('description', $menu->description) }}</textarea>
                 </div>
             </div>
 
@@ -61,20 +61,20 @@
                     </div>
                     
                     <input type="file" name="image" id="image-input" accept="image/png, image/jpeg, image/jpg"
-                           class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-red-50 file:text-red-700 file:border-0 font-bold cursor-pointer">
+                           class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:bg-blue-50 file:text-blue-700 file:border-0 font-bold cursor-pointer">
                     <p class="text-[10px] text-gray-400 mt-2 font-medium">*Format: JPG, JPEG, atau PNG. Kosongkan jika tidak ganti.</p>
                 </div>
 
                 <div>
                     <label class="block text-xs font-black text-gray-500 uppercase mb-2 tracking-widest">Status Stok</label>
                     <div class="flex gap-4">
-                        <label class="flex-1 flex items-center justify-center gap-2 cursor-pointer border py-3 rounded-xl transition has-[:checked]:bg-red-50 has-[:checked]:border-red-500">
+                        <label class="flex-1 flex items-center justify-center gap-2 cursor-pointer border py-3 rounded-xl transition has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500">
                             <input type="radio" name="is_available" value="1" {{ $menu->is_available ? 'checked' : '' }} class="hidden">
                             <span class="text-xs font-black uppercase tracking-widest text-gray-600">Tersedia</span>
                         </label>
-                        <label class="flex-1 flex items-center justify-center gap-2 cursor-pointer border py-3 rounded-xl transition has-[:checked]:bg-gray-100 has-[:checked]:border-gray-400">
+                        <label class="flex-1 flex items-center justify-center gap-2 cursor-pointer border py-3 rounded-xl transition has-[:checked]:bg-red-50 has-[:checked]:border-red-400">
                             <input type="radio" name="is_available" value="0" {{ !$menu->is_available ? 'checked' : '' }} class="hidden">
-                            <span class="text-xs font-black uppercase tracking-widest text-gray-400">Habis</span>
+                            <span class="text-xs font-black uppercase tracking-widest text-gray-600">Habis</span>
                         </label>
                     </div>
                 </div>

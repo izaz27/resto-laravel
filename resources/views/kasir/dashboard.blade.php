@@ -6,14 +6,14 @@
         {{-- Header --}}
         <div class="mb-8 flex justify-between items-end">
             <div>
-                <h2 class="text-3xl font-black text-gray-800 uppercase italic tracking-tighter">
-                    Pesanan <span class="text-red-600">Hari Ini</span>
+                <h2 class="text-3xl font-black text-white uppercase tracking-tighter">
+                    Pesanan <span class="text-blue-400">Hari Ini</span>
                 </h2>
-                <p class="text-gray-500 text-xs font-bold uppercase tracking-widest mt-1">Selamat Bekerja</p>
+                <p class="text-gray-200 text-xs font-bold uppercase tracking-widest mt-1">Selamat Bekerja</p>
             </div>
             <div class="text-right">
-                <span class="text-[10px] font-black text-gray-400 uppercase">Total Pesanan</span>
-                <p class="text-2xl font-black text-gray-800">{{ $orders->count() }}</p>
+                <span class="text-[10px] font-black text-gray-200 uppercase">Total Pesanan</span>
+                <p class="text-2xl font-black text-white">{{ $orders->count() }}</p>
             </div>
         </div>
 
@@ -28,13 +28,13 @@
                             {{-- Klik Kode Order untuk buka Detail --}}
                             <button onclick="openDetailModal({{ $order->id }})" class="text-left group">
                                 <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Kode Order</span>
-                                <h3 class="font-black text-gray-800 text-lg group-hover:text-red-600 transition-colors">#{{ $order->order_code }}</h3>
+                                <h3 class="font-black text-gray-800 text-lg group-hover:text-green-500 transition-colors">#{{ $order->order_code }}</h3>
                                 <span class="text-[14px] text-blue-500 font-bold tracking-tighter">Detail</span>
                             </button>
 
                             <div>
                                 <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Meja</span>
-                                <span class="inline-block bg-red-50 text-red-600 px-3 py-1 rounded-xl font-black text-mm border border-red-100">
+                                <span class="inline-block bg-blue-50 text-blue-600 px-3 py-1 rounded-xl font-black text-mm border border-blue-100">
                                     {{ $order->table_numbers }}
                                 </span>
                             </div>
@@ -99,7 +99,7 @@
                         <div class="bg-white p-8">
                             <div class="flex justify-between items-start mb-6">
                                 <div>
-                                    <h3 class="text-2xl font-black text-gray-800 uppercase italic">Rincian <span class="text-red-600">Order</span></h3>
+                                    <h3 class="text-2xl font-black text-gray-800 uppercasec">Rincian <span class="text-blue-600">Order</span></h3>
                                     <p class="text-xs font-bold text-gray-400">#{{ $order->order_code }} - Meja {{ $order->table_numbers }}</p>
                                 </div>
                                 <button onclick="closeDetailModal({{ $order->id }})" class="text-gray-400 hover:text-gray-600">
@@ -112,7 +112,7 @@
                                 <div class="flex justify-between items-center bg-gray-50 p-4 rounded-2xl">
                                     <div>
                                         <p class="font-black text-gray-800 uppercase text-sm">{{ $detail->menu->name }}</p>
-                                        <p class="text-[10px] font-bold text-red-500 italic">Rp {{ number_format($detail->price, 0, ',', '.') }} x {{ $detail->qty }}</p>
+                                        <p class="text-[10px] font-bold text-green-500 italic">Rp {{ number_format($detail->price, 0, ',', '.') }} x {{ $detail->qty }}</p>
                                         @if($detail->note && $detail->note != '-')
                                             <p class="text-[12px] bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded mt-1 inline-block">Catatan: {{ $detail->note }}</p>
                                         @endif

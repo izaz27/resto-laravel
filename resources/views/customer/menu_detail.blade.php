@@ -1,9 +1,11 @@
 @extends('layouts.customer')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 py-8 bg-white min-h-screen">
-    <a href="{{ route('customer.menu.index') }}" class="inline-flex items-center text-gray-600 hover:text-red-600 mb-6 transition">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+<div class="max-w-7xl mx-auto px-4 py-8 bg-gray-900 min-h-screen">
+    <a href="{{ route('customer.menu.index') }}" class="inline-flex items-center text-white hover:text-blue-500 text-[24px] mb-6 transition">
+        <svg class="w-5 h-5 md:w-7 md:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
         Kembali ke Menu
     </a>
 
@@ -16,19 +18,19 @@
         </div>
 
         <div class="flex flex-col">
-            <h1 class="text-4xl font-extrabold text-gray-900 uppercase tracking-tight">{{ $menu->name }}</h1>
+            <h1 class="text-4xl font-extrabold text-white uppercase tracking-tight">{{ $menu->name }}</h1>
             
-            <div class="text-3xl font-bold text-red-600 mt-4">
+            <div class="text-3xl font-bold text-green-300 mt-4">
                 Rp{{ number_format($menu->price, 0, ',', '.') }}
             </div>
 
-            <p class="text-gray-600 mt-6 text-lg leading-relaxed border-b pb-6">
+            <p class="text-gray-300 mt-6 text-lg leading-relaxed border-b pb-6">
                 {{ $menu->description }}
             </p>
 
             {{-- Rekomendasi Pendamping --}}
             <div class="mt-8">
-                <h3 class="font-bold text-gray-800 mb-4 text-xl">Rekomendasi Pendamping</h3>
+                <h3 class="font-bold text-white mb-4 text-xl">Rekomendasi Pendamping</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     @foreach($recommendations as $rec)
                         <div class="flex items-center gap-4 bg-gray-50 p-2 rounded-xl">
@@ -38,12 +40,12 @@
                                 
                             <div class="flex-1">
                                 <h4 class="font-bold text-sm">{{ $rec->name }}</h4>
-                                <p class="text-red-600 font-bold text-sm">Rp{{ number_format($rec->price, 0, ',', '.') }}</p>
+                                <p class="text-blue-600 font-bold text-sm">Rp{{ number_format($rec->price, 0, ',', '.') }}</p>
                             </div>
                             
                             {{-- Tombol Rekomendasi AJAX --}}
                             <button type="button" onclick="addToCartDetail('{{ $rec->id }}', 1, '')" 
-                                    class="bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-sm hover:bg-red-50 text-xl font-bold">+</button>
+                                    class="bg-white border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-sm hover:bg-blue-50 text-xl font-bold">+</button>
                         </div>
                     @endforeach
                 </div>
@@ -57,19 +59,19 @@
                 </div>
                 {{-- Tambahkan ID pada textarea --}}
                 <textarea id="note-input" maxlength="20"
-                          class="w-full border-gray-200 rounded-xl p-4 text-sm focus:ring-red-500 focus:border-red-500" 
+                          class="w-full border-gray-200 rounded-xl p-4 text-sm focus:ring-blue-500 focus:border-blue-500" 
                           placeholder="Contoh: Kurangi pedas, tanpa seledri..."></textarea>
 
                 <div class="mt-8 flex items-center gap-6">
                     <div class="flex items-center bg-white border border-gray-200 rounded-xl px-4 py-3 gap-8 shadow-sm">
-                        <button type="button" onclick="decrement()" class="text-2xl font-bold text-gray-400 hover:text-red-600 transition">-</button>
+                        <button type="button" onclick="decrement()" class="text-2xl font-bold text-gray-400 hover:text-blue-600 transition">-</button>
                         <span id="qty-display" class="font-bold text-xl min-w-[20px] text-center">1</span>
-                        <button type="button" onclick="increment()" class="text-2xl font-bold text-gray-400 hover:text-red-600 transition">+</button>
+                        <button type="button" onclick="increment()" class="text-2xl font-bold text-gray-400 hover:text-blue-600 transition">+</button>
                     </div>
                     
                     {{-- Tombol Utama AJAX --}}
                     <button type="button" onclick="submitMainForm('{{ $menu->id }}')" 
-                            class="flex-1 bg-red-600 text-white font-bold py-4 rounded-xl hover:bg-red-700 shadow-lg shadow-red-200 transition-all transform active:scale-[0.98]">
+                            class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all transform active:scale-[0.98]">
                         Tambah ke Keranjang
                     </button>
                 </div>

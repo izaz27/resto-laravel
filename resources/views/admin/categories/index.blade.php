@@ -4,8 +4,8 @@
 <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-2xl font-black text-gray-800 uppercase">Daftar Kategori</h1>
-        <a href="{{ route('admin.category.create') }}" class="bg-red-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-red-700 transition shadow-lg shadow-red-100 text-sm">
-            + TAMBAH KATEGORI
+        <a href="{{ route('admin.category.create') }}" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-100 text-sm">
+            TAMBAH KATEGORI
         </a>
     </div>
 
@@ -80,7 +80,7 @@
                 <form id="deleteForm" method="POST" class="flex-1">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="w-full px-4 py-3 bg-red-600 text-white rounded-xl font-black hover:bg-red-700 transition shadow-lg shadow-red-200">
+                    <button type="submit" class="w-full px-4 py-3 bg-blue-600 text-white rounded-xl font-black hover:bg-blue-700 transition shadow-lg shadow-blue-200">
                         YA, HAPUS
                     </button>
                 </form>

@@ -17,13 +17,13 @@
             {{-- Nama Menu --}}
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2 uppercase italic">Nama Menu</label>
-                <input type="text" name="name" value="{{ old('name') }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none" placeholder="Contoh: Ayam Geprek" required>
+                <input type="text" name="name" value="{{ old('name') }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Contoh: Ayam Geprek" required>
             </div>
 
             {{-- Kategori --}}
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2 uppercase italic">Kategori</label>
-                <select name="category_id" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none" required>
+                <select name="category_id" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required>
                     <option value="">Pilih Kategori</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
@@ -34,23 +34,23 @@
             {{-- Harga --}}
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2 uppercase italic">Harga (Rp)</label>
-                <input type="number" name="price" value="{{ old('price') }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none" placeholder="Contoh: 25000" required>
+                <input type="number" name="price" value="{{ old('price') }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Contoh: 25000" required>
             </div>
 
             {{-- Foto Produk --}}
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2 uppercase italic">Foto Produk</label>
-                <input type="file" name="image" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100" required>
+                <input type="file" name="image" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
             </div>
         </div>
 
         <div class="mt-6">
             <label class="block text-sm font-bold text-gray-700 mb-2 uppercase italic">Deskripsi</label>
-            <textarea name="description" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none" placeholder="Jelaskan detail menu...">{{ old('description') }}</textarea>
+            <textarea name="description" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Jelaskan detail menu...">{{ old('description') }}</textarea>
         </div>
 
         <div class="mt-8 flex gap-3">
-            <button type="submit" class="flex-1 bg-red-600 text-white py-4 rounded-xl font-black hover:bg-red-700 transition tracking-widest uppercase">SIMPAN MENU</button>
+            <button type="submit" class="flex-1 bg-blue-600 text-white py-4 rounded-xl font-black hover:bg-blue-700 transition tracking-widest uppercase">SIMPAN MENU</button>
             <a href="{{ route('admin.menu.index') }}" class="flex-1 bg-gray-100 text-center text-gray-600 py-4 rounded-xl font-black hover:bg-gray-200 transition tracking-widest uppercase">BATAL</a>
         </div>
     </form>

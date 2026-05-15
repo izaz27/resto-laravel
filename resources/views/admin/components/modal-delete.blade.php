@@ -22,7 +22,7 @@
                 <form id="deleteForm" method="POST" class="flex-1">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="w-full px-4 py-3 bg-red-600 text-white rounded-2xl font-black hover:bg-red-700 transition shadow-lg shadow-red-200">
+                    <button type="submit" class="w-full px-4 py-3 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 transition shadow-lg shadow-blue-200">
                         HAPUS
                     </button>
                 </form>
